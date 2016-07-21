@@ -4,5 +4,8 @@ server:
 spring:
   application:
     name: gr8service
+  cloud:
+    config:
+      uri: http://localhost:8888
 
 greeting: Hello
