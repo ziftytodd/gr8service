@@ -4,16 +4,37 @@ server:
 spring:
   application:
     name: gr8service
-  cloud:
-    config:
-      uri: http://localhost:8888
 
 greeting: Hello
 
 eureka:
   instance:
-    leaseRenewalIntervalInSeconds: 10
     non-secure-port: ${server.port}
+
+---
+spring:
+  profiles: aws
+  cloud:
+    config:
+      uri: http://config.gr8conf.vpc:8888
+
+eureka:
+  client:
+    eurekaServerDNSName: gr8conf.vpc
+    eurekaServerPort: 8761
+    eurekaServerURLContext: eureka
+    useDnsForFetchingServiceUrls: true
+
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 10
     hostname: localhost
   client:
     serviceUrl:
